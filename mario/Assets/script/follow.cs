@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class followPlayer : MonoBehaviour
+public class follow : MonoBehaviour
 {
 
     public Transform player;

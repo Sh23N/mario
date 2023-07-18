@@ -1607,8 +1607,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2098565982}
-        m_TargetAssemblyTypeName: control, Assembly-CSharp
+      - m_Target: {fileID: 2098565984}
+        m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: OnClickup
         m_Mode: 1
         m_Arguments:
@@ -1808,7 +1808,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 241417549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 946c33321937d9c4ebbd8f8aa01f2cbd, type: 3}
+  m_Script: {fileID: 11500000, guid: ab3b462a8dff02442a7dab5e7233e1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2098565980}
@@ -7659,8 +7659,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2098565982}
-        m_TargetAssemblyTypeName: control, Assembly-CSharp
+      - m_Target: {fileID: 2098565984}
+        m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: OnClicleft
         m_Mode: 1
         m_Arguments:
@@ -11124,8 +11124,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2098565982}
-        m_TargetAssemblyTypeName: control, Assembly-CSharp
+      - m_Target: {fileID: 2098565984}
+        m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: OnClickright
         m_Mode: 1
         m_Arguments:
@@ -11593,7 +11593,7 @@ GameObject:
   - component: {fileID: 2098565979}
   - component: {fileID: 2098565981}
   - component: {fileID: 2098565983}
-  - component: {fileID: 2098565982}
+  - component: {fileID: 2098565984}
   m_Layer: 0
   m_Name: Mario_Big_Idle
   m_TagString: Untagged
@@ -11695,21 +11695,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &2098565982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098565977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64aaa96ad130cce4ebcb4f4c1a5f0585, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 2098565983}
-  speedH: 5
-  speedV: 6
 --- !u!50 &2098565983
 Rigidbody2D:
   serializedVersion: 4
@@ -11731,6 +11716,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2098565984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098565977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ff49a49460d64439e0af3c4210d286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 2098565983}
+  speedH: 5
+  speedV: 6
 --- !u!1001 &2117200571
 PrefabInstance:
   m_ObjectHideFlags: 0
