@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Control : MonoBehaviour
 {
@@ -11,53 +13,134 @@ public class Control : MonoBehaviour
     private bool facingRight = true;//true for right
     private bool r = false;
     private bool l = false;
-    private bool u = false;                               //public bool Arrow;//
+    private bool u = false;
+    //public bool Arrow;//
 
-    void Update()
+    public FixedJoystick joystick;
+    Vector2 move;
+
+    public GameObject mobileJ;
+
+    private bool desktop;
+
+    public bool jump;
+
+    bool OnGround = true;
+   
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || u)
+        if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            u = false;
-            rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
+            desktop = true;
+            mobileJ.SetActive(false);
+            print("Desktop");
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || r)
+        if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            r = false;
-            if (facingRight == false)
-                transform.Rotate(0f, 180f, 0f);
+            desktop =false;
+            mobileJ.SetActive(true);
+            print("Android");
+
+        }
+
+    }
+   /* void Update()
+    { if (desktop)
+        {
+
+
+        }
+        else if (!desktop)
+        {
+
+
+        }
+        /*if (joystick.Horizontal > 0)
+        {
+            print("r");
+            transform.Rotate(0f, 180f, 0f);
             facingRight = true;
-            rb.AddForce(Vector2.right * speedH, ForceMode2D.Impulse);
-
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || l)
+        else if(joystick.Horizontal <= 0)
         {
-            l = false;
+            print("l");
             if (facingRight == true)
-                transform.Rotate(0f, 180f, 0f);
-            facingRight = false;
-            rb.AddForce(Vector2.left * speedH, ForceMode2D.Impulse);
+                 transform.Rotate(0f, 180f, 0f);
+                facingRight = false;
+        }
+        // move.y=joystick.Vertical;*/
+
+   // }
+
+    private void Update()
+    {
+        print(move.y);
+        if (desktop)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                // u = false;
+                if (OnGround)
+                {
+                    rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
+                    OnGround = false;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                // r = false;
+                if (facingRight == false)
+                    transform.Rotate(0f, 180f, 0f);
+                facingRight = true;
+                rb.AddForce(Vector2.right * speedH, ForceMode2D.Impulse);
+
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                // l = false;
+                if (facingRight == true)
+                    transform.Rotate(0f, 180f, 0f);
+                facingRight = false;
+                rb.AddForce(Vector2.left * speedH, ForceMode2D.Impulse);
+
+            }
+        }
+        else if (!desktop)
+        {   
+        
+            transform.Translate(new Vector3(joystick.Horizontal, 0, 0) * speedH * Time.deltaTime);
 
         }
+
+        /*  if (Physics2D.Raycast(transform.position, -transform.right,10))
+          {  Debug.DrawRay(transform.position, -transform.right, Color.red);
+              i++;
+              OnGround = true;
+              print("ground"+i);
+          }*/
 
     }
     // Start is called before the first frame update
-    void Start()
-    {
 
-    }
     public void OnClickup()
-    {
-        u = true;
+    { 
+            if (OnGround)
+            {
+                rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
+                OnGround = false;
+            }
+  
     }
-    public void OnClickright()
+    
+    void OnCollisionEnter2D(Collision2D a)
     {
-        r = true;
-    }
-    public void OnClicleft()
-    {
-        l = true;
-    }
+        if (a.gameObject.tag == "block")
+           {
+            OnGround = true;
+            print("block");
 
+            }
+    }
 
 }
 
