@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class Control : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speedH = 5;
-    public float speedV = 7;
+    public float speedV = 20;
 
     private bool facingRight = true;//true for right
     private bool r = false;
@@ -26,13 +28,19 @@ public class Control : MonoBehaviour
     public bool jump;
 
     bool OnGround = true;
-   
+
+    public Animator animator;
+
+    public static int value = 0;
+
+    public TMP_Text showVal;
+
     void Start()
     {
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            desktop = true;
-            mobileJ.SetActive(false);
+            desktop = false;
+            mobileJ.SetActive(true);
             print("Desktop");
         }
         if (SystemInfo.deviceType == DeviceType.Handheld)
@@ -44,42 +52,19 @@ public class Control : MonoBehaviour
         }
 
     }
-   /* void Update()
-    { if (desktop)
-        {
-
-
-        }
-        else if (!desktop)
-        {
-
-
-        }
-        /*if (joystick.Horizontal > 0)
-        {
-            print("r");
-            transform.Rotate(0f, 180f, 0f);
-            facingRight = true;
-        }
-        else if(joystick.Horizontal <= 0)
-        {
-            print("l");
-            if (facingRight == true)
-                 transform.Rotate(0f, 180f, 0f);
-                facingRight = false;
-        }
-        // move.y=joystick.Vertical;*/
-
-   // }
+ 
 
     private void Update()
     {
-        print(move.y);
+      
+        // animator.SetFloat("Speed", Mathf.Abs(horizontalMove));//*********
+   
         if (desktop)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                // u = false;
+                animator.SetBool("isjump", true);
+
                 if (OnGround)
                 {
                     rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
@@ -88,15 +73,24 @@ public class Control : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
+                animator.SetFloat("Speed", Mathf.Abs(0.2f));
                 // r = false;
                 if (facingRight == false)
                     transform.Rotate(0f, 180f, 0f);
                 facingRight = true;
                 rb.AddForce(Vector2.right * speedH, ForceMode2D.Impulse);
+                
 
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.UpArrow))
+            {   //if(!OnGround)
+                animator.SetBool("isjump",false);
+
+                animator.SetFloat("Speed", Mathf.Abs(0.01f));
+            }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                animator.SetFloat("Speed", Mathf.Abs(0.2f));
                 // l = false;
                 if (facingRight == true)
                     transform.Rotate(0f, 180f, 0f);
@@ -104,14 +98,47 @@ public class Control : MonoBehaviour
                 rb.AddForce(Vector2.left * speedH, ForceMode2D.Impulse);
 
             }
+           /* if (Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                animator.SetFloat("Speed", Mathf.Abs(0.05f));
+
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                animator.SetFloat("Speed", Mathf.Abs(0.05f));
+            }*/
         }
         else if (!desktop)
-        {   
-        
-            transform.Translate(new Vector3(joystick.Horizontal, 0, 0) * speedH * Time.deltaTime);
+        {
+
+            if (joystick.Horizontal > 0)
+            {
+                if (facingRight == false)
+                    transform.Rotate(0f, 180f, 0f);
+                facingRight = true;
+                animator.SetFloat("Speed", Mathf.Abs(0.2f));
+                transform.Translate(Vector3.right * speedH * Time.deltaTime);
+                print("right");
+            }
+            if (joystick.Horizontal < 0)
+            {
+                if (facingRight == true)
+                    transform.Rotate(0f, 180f, 0f);
+                facingRight = false;
+                animator.SetFloat("Speed", Mathf.Abs(0.2f));
+                transform.Translate(Vector3.right * speedH * Time.deltaTime);
+                print("left");
+            }
+            if (joystick.Horizontal == 0 && OnGround)
+            {
+                animator.SetBool("isjump", false);
+
+                animator.SetFloat("Speed", Mathf.Abs(0.01f));
+                print("statick");
+            }
 
         }
-
+        showVal.text=value.ToString();
         /*  if (Physics2D.Raycast(transform.position, -transform.right,10))
           {  Debug.DrawRay(transform.position, -transform.right, Color.red);
               i++;
@@ -126,7 +153,8 @@ public class Control : MonoBehaviour
     { 
             if (OnGround)
             {
-                rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
+               animator.SetBool("isjump", true);
+               rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
                 OnGround = false;
             }
   
@@ -140,6 +168,8 @@ public class Control : MonoBehaviour
             print("block");
 
             }
+     
+
     }
 
 }
