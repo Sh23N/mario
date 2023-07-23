@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 public class Control : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speedH = 5;
-    public float speedV = 20;
+    public float speedV = 25;
 
     private bool facingRight = true;//true for right
-    private bool r = false;
+   /* private bool r = false;
     private bool l = false;
-    private bool u = false;
-    //public bool Arrow;//
+    private bool u = false;*/
 
     public FixedJoystick joystick;
     Vector2 move;
@@ -25,9 +26,9 @@ public class Control : MonoBehaviour
 
     private bool desktop;
 
-    public bool jump;
+    static public bool jump;
 
-    bool OnGround = true;
+    public static bool OnGround = true;
 
     public Animator animator;
 
@@ -35,12 +36,28 @@ public class Control : MonoBehaviour
 
     public TMP_Text showVal;
 
+    //public GameObject preobj;
+    public GameObject Enemy;
+
+    private float detectRange = 8f;
+
+    bool[] createEnemies;
+    int L = 0;
+
+  // public  int j = Enemy.playerDeath;
     void Start()
     {
+        createEnemies = new bool[30];
+
+        for (int i = 0; i < 30; i++)
+        {
+            createEnemies[i] = false;
+        }
+        
         if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            desktop = false;
-            mobileJ.SetActive(true);
+            desktop = true;
+            mobileJ.SetActive(false);
             print("Desktop");
         }
         if (SystemInfo.deviceType == DeviceType.Handheld)
@@ -56,9 +73,27 @@ public class Control : MonoBehaviour
 
     private void Update()
     {
-      
+       
+        GameObject[] nearbymario = GameObject.FindGameObjectsWithTag("emptyEnemy");
+        L = nearbymario.Length;
+        for (int i = 0; i < L; i++)
+        {
+            float dis = Vector2.Distance(transform.position, nearbymario[i].transform.position);
+            if (dis <= detectRange && createEnemies[i]==false)
+            {
+               
+                createEnemies[i]=true;
+                Instantiate(Enemy, new Vector2(nearbymario[i].transform.position.x, nearbymario[i].transform.position.y), Quaternion.identity);
+            }
+        }
+       /* if ( Enemy.pd ==true)
+        {
+            animator.SetBool("IsDeath", true);
+        }*/
+
+
         // animator.SetFloat("Speed", Mathf.Abs(horizontalMove));//*********
-   
+
         if (desktop)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -168,9 +203,17 @@ public class Control : MonoBehaviour
             print("block");
 
             }
-     
+        if (a.gameObject.tag == "ignor")
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), a.collider);
+            print("ignor");
+
+        }
+
+
 
     }
+
 
 }
 
