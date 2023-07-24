@@ -31,6 +31,7 @@ public class coinBlock : MonoBehaviour
             print("down");
             print("val" + Control.value);
             i++;
+            Control.coinBlock = true;
         }
 
 

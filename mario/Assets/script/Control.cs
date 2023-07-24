@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
-using System.Net.NetworkInformation;
+
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using UnityEngine.SceneManagement;
 
 public class Control : MonoBehaviour
 {
@@ -15,9 +17,6 @@ public class Control : MonoBehaviour
     public float speedV = 25;
 
     private bool facingRight = true;//true for right
-   /* private bool r = false;
-    private bool l = false;
-    private bool u = false;*/
 
     public FixedJoystick joystick;
     Vector2 move;
@@ -44,9 +43,24 @@ public class Control : MonoBehaviour
     bool[] createEnemies;
     int L = 0;
 
-  // public  int j = Enemy.playerDeath;
+    public static bool marioDeath = false;
+
+    public AudioSource jumpSound;
+    public AudioSource deathSound;
+    public AudioSource winSound;
+    public AudioSource coinSound;
+    bool  playDeath=false;
+
+    static public bool coinBlock = false;
+
+    static public int winLevel = 1;// for every level that win winLevel++
+
+    public GameObject GameOverCanvas;
+    public GameObject levelWinCanvas;
     void Start()
     {
+        marioDeath = false;
+       //// source = GetComponent<AudioSource>();
         createEnemies = new bool[30];
 
         for (int i = 0; i < 30; i++)
@@ -86,10 +100,24 @@ public class Control : MonoBehaviour
                 Instantiate(Enemy, new Vector2(nearbymario[i].transform.position.x, nearbymario[i].transform.position.y), Quaternion.identity);
             }
         }
-       /* if ( Enemy.pd ==true)
+        if (marioDeath)
         {
-            animator.SetBool("IsDeath", true);
-        }*/
+            
+            GameOverCanvas.SetActive(true);
+            gameObject.SetActive(false);
+        }
+        if ( marioDeath ==true && !playDeath)
+        {   animator.SetBool("Death", true);
+            deathSound.Play();
+            print("death");
+            playDeath = true;
+            
+        }
+        if (coinBlock)
+        {
+            coinSound.Play();
+            coinBlock = false;
+        }
 
 
         // animator.SetFloat("Speed", Mathf.Abs(horizontalMove));//*********
@@ -98,8 +126,9 @@ public class Control : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                jumpSound.Play();
                 animator.SetBool("isjump", true);
-
+          
                 if (OnGround)
                 {
                     rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
@@ -188,6 +217,8 @@ public class Control : MonoBehaviour
     { 
             if (OnGround)
             {
+
+               jumpSound.Play();
                animator.SetBool("isjump", true);
                rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
                 OnGround = false;
@@ -209,9 +240,18 @@ public class Control : MonoBehaviour
             print("ignor");
 
         }
-
-
-
+    }
+    public void Retry()
+    {
+        SceneManager.LoadScene("level"+winLevel);
+    }
+    public void levelSelect()
+    {
+        SceneManager.LoadScene("menu");
+    }
+    public void NextSelect()
+    {
+        SceneManager.LoadScene("level" + winLevel);
     }
 
 

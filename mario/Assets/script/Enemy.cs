@@ -16,8 +16,8 @@ public class Enemy : MonoBehaviour
 
     bool Death = false;
     float t=0f;
-   //
-    public static  bool pd=false;
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
     void OnCollisionEnter2D(Collision2D a)
     {  if (gameObject != null)
         {
-            if (a.gameObject.tag == "Player" && transform.position.y+0.01 < a.contacts[0].point.y && Control.OnGround==false)
+            if (a.gameObject.tag == "Player" && transform.position.y < a.contacts[0].point.y && Control.OnGround==false)
             {
                 //Control.value++;
                 Death = true;
@@ -60,11 +60,12 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("isDeath", true);
                 t=Time.time;
             }
-            else if (a.gameObject.tag == "Player")
+            else if (a.gameObject.tag == "Player" )
             {
-                //C//ontrol.value++;
                 
-                pd = true;
+                Control.marioDeath=true;
+               // a.gameObject.SetActive(false);
+               
                 print("..........................");
 
             }

@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 public class coin : MonoBehaviour
 {
     public int value = Control.value;
+
+    public AudioSource coinSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,7 @@ public class coin : MonoBehaviour
     {
         if (a.gameObject.tag == "Player")
         {
+            coinSound.Play();
             Control.value++;
             Destroy(gameObject);
             print("val" + Control.value);
