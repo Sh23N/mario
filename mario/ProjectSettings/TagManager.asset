@@ -12,6 +12,7 @@ TagManager:
   - stop
   - ff
   - emptyEnemy
+  - water
   layers:
   - Default
   - TransparentFX

@@ -61,18 +61,29 @@ public class menu : MonoBehaviour
 
     }
     public void OnClicklevel1()
-    {   if(Control.winLevel>=1)
-          SceneManager.LoadScene("level1");
+    {
+        if (Control.winLevel >= 1)
+        {
+            Control.value = 0;
+            SceneManager.LoadScene("level1");
+        }
     }
     public void OnClicklevel2()
     {
         if (Control.winLevel >= 2)
+        {
+            Control.value = 0;
             SceneManager.LoadScene("level2");
+        }
+
     }
     public void OnClicklevel3()
     {
         if (Control.winLevel >= 3)
+        {
+            Control.value = 0;
             SceneManager.LoadScene("level3");
+        }
     }
 
 }

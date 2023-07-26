@@ -60,7 +60,7 @@ public class Control : MonoBehaviour
     void Start()
     {
         marioDeath = false;
-       //// source = GetComponent<AudioSource>();
+   
         createEnemies = new bool[30];
 
         for (int i = 0; i < 30; i++)
@@ -97,21 +97,36 @@ public class Control : MonoBehaviour
             {
                
                 createEnemies[i]=true;
+                
                 Instantiate(Enemy, new Vector2(nearbymario[i].transform.position.x, nearbymario[i].transform.position.y), Quaternion.identity);
             }
         }
-        if (marioDeath)
+       /* if (marioDeath )
         {
             
             GameOverCanvas.SetActive(true);
             gameObject.SetActive(false);
-        }
+           // value = value - 10;
+        }*/
         if ( marioDeath ==true && !playDeath)
-        {   animator.SetBool("Death", true);
+        {
+            if (value < 15)
+            { 
+            animator.SetBool("Death", true);
             deathSound.Play();
             print("death");
             playDeath = true;
-            
+           
+            GameOverCanvas.SetActive(true);//
+            gameObject.SetActive(false);//
+            }
+           if(value >= 15)
+           {
+               value = value - 15;
+               marioDeath = false;
+                print("moreeeeee" + value);
+           }
+
         }
         if (coinBlock)
         {
@@ -198,7 +213,7 @@ public class Control : MonoBehaviour
                 animator.SetBool("isjump", false);
 
                 animator.SetFloat("Speed", Mathf.Abs(0.01f));
-                print("statick");
+                
             }
 
         }
@@ -240,17 +255,30 @@ public class Control : MonoBehaviour
             print("ignor");
 
         }
+        if (a.gameObject.tag == "water")
+        {
+            marioDeath = true;
+            print("die in water");
+            GameOverCanvas.SetActive(true);
+            gameObject.SetActive(false);
+                animator.SetBool("Death", true);
+                deathSound.Play();
+
+            }
     }
     public void Retry()
     {
+        value = 0;
         SceneManager.LoadScene("level"+winLevel);
     }
     public void levelSelect()
     {
+        value = 0;
         SceneManager.LoadScene("menu");
     }
     public void NextSelect()
     {
+        value = 0;
         SceneManager.LoadScene("level" + winLevel);
     }
 

@@ -12525,7 +12525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1647.1, y: 70.4}
+  m_AnchoredPosition: {x: 1557, y: 74}
   m_SizeDelta: {x: 55.23, y: 33.073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110420035
@@ -12822,15 +12822,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116456, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 146.68
+      value: -1.47
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116456, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.98
+      value: -3.19
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116456, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.75
+      value: -3.68
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116456, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12862,7 +12862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116460, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116462, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: m_GravityScale
@@ -12882,7 +12882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116463, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: speedV
-      value: 8.5
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2221863273200116463, guid: cd2cf59f85cbe75428e73db43204c6f1, type: 3}
       propertyPath: mobileJ

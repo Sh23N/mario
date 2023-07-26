@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("isDeath", true);
                 t=Time.time;
             }
-            else if (a.gameObject.tag == "Player" )
+            else if (a.gameObject.tag == "Player"  )
             {
                 
                 Control.marioDeath=true;
