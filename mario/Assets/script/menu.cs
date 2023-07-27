@@ -21,20 +21,22 @@ public class menu : MonoBehaviour
     void Start()
     {
         t = Time.time;
-        
+    // PlayerPrefs.SetInt("lastLevel", 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time-t>=1.5f)
+        Control.winLevel = PlayerPrefs.GetInt("lastLevel") + 1;
+        print(Control.winLevel);
+        if (Time.time-t>=1.5f)
         {
             level1.gameObject.SetActive(true);
             level2.gameObject.SetActive(true);
             level3.gameObject.SetActive(true);
 
         }
-        if (Control.winLevel == 1)
+        if (Control.winLevel <= 1)
         {
             level1.GetComponent<Image>().sprite = notLockImage;
             level1.GetComponentInChildren<TMP_Text>().text = "1";

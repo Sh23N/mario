@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 public class win : MonoBehaviour
 {
     public GameObject winLevelCanvas;
@@ -24,10 +25,14 @@ public class win : MonoBehaviour
         {  
             print("win level");
              winSound.Play();
-            Control.winLevel++;
+            
            winLevelCanvas.SetActive(true);
             //SceneManager.LoadScene(Control.winLevel);
-            
+            int activeScene = SceneManager.GetActiveScene().buildIndex;
+            Control.winLevel = activeScene;
+            PlayerPrefs.SetInt("lastLevel", Control.winLevel);
+
+
         }
     }
 }
