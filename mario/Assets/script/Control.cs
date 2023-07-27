@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using UnityEngine.SceneManagement;
 
+
 public class Control : MonoBehaviour
 {
     public Rigidbody2D rb;
@@ -281,6 +282,11 @@ public class Control : MonoBehaviour
         value = 0;
         SceneManager.LoadScene("level" + winLevel);
     }
+    public void OnClickClose()
+    {
+        Application.Quit();
+    }
+   
 
 
 }

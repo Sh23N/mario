@@ -21,7 +21,7 @@ public class menu : MonoBehaviour
     void Start()
     {
         t = Time.time;
-    // PlayerPrefs.SetInt("lastLevel", 0);
+    //PlayerPrefs.SetInt("lastLevel", 0);
     }
 
     // Update is called once per frame
@@ -86,6 +86,10 @@ public class menu : MonoBehaviour
             Control.value = 0;
             SceneManager.LoadScene("level3");
         }
+    }
+    public void OnClickClose()
+    {
+        Application.Quit();
     }
 
 }
