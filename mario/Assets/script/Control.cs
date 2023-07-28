@@ -94,7 +94,7 @@ public class Control : MonoBehaviour
         for (int i = 0; i < L; i++)
         {
             float dis = Vector2.Distance(transform.position, nearbymario[i].transform.position);
-            if (dis <= detectRange && createEnemies[i]==false)
+            if (dis <= detectRange && createEnemies[i]==false) // instantiate only one enemy in each empty enemy
             {
                
                 createEnemies[i]=true;
@@ -140,42 +140,42 @@ public class Control : MonoBehaviour
 
         if (desktop)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow))// jump
             {
-                jumpSound.Play();
-                animator.SetBool("isjump", true);
+                jumpSound.Play();// play sound for jump
+                animator.SetBool("isjump", true);//play jump aniamtion
           
-                if (OnGround)
+                if (OnGround)// prevent to jump higher when in jump
                 {
-                    rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
-                    OnGround = false;
+                    rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);// add force up
+                    OnGround = false;// mario is not on Ground 
+
                 }
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow)) // run right
             {
-                animator.SetFloat("Speed", Mathf.Abs(0.2f));
-                // r = false;
-                if (facingRight == false)
+                animator.SetFloat("Speed", Mathf.Abs(0.2f));// play run animation
+               
+                if (facingRight == false)//to rotate his face 
                     transform.Rotate(0f, 180f, 0f);
                 facingRight = true;
-                rb.AddForce(Vector2.right * speedH, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.right * speedH, ForceMode2D.Impulse); //go right
                 
-
             }
             if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.UpArrow))
-            {   //if(!OnGround)
-                animator.SetBool("isjump",false);
+            {   
+                animator.SetBool("isjump",false);// stop playing jump animation
 
-                animator.SetFloat("Speed", Mathf.Abs(0.01f));
+                animator.SetFloat("Speed", Mathf.Abs(0.01f));// stop playing run animation
             }
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                animator.SetFloat("Speed", Mathf.Abs(0.2f));
-                // l = false;
-                if (facingRight == true)
+                animator.SetFloat("Speed", Mathf.Abs(0.2f));//play animation for run
+              
+                if (facingRight == true)// rotate face to left
                     transform.Rotate(0f, 180f, 0f);
                 facingRight = false;
-                rb.AddForce(Vector2.left * speedH, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.left * speedH, ForceMode2D.Impulse);//go left
 
             }
            /* if (Input.GetKeyUp(KeyCode.LeftArrow))
@@ -190,8 +190,7 @@ public class Control : MonoBehaviour
         }
         else if (!desktop)
         {
-
-            if (joystick.Horizontal > 0)
+            if (joystick.Horizontal > 0)// if joy stick to right
             {
                 if (facingRight == false)
                     transform.Rotate(0f, 180f, 0f);
@@ -213,8 +212,7 @@ public class Control : MonoBehaviour
             {
                 animator.SetBool("isjump", false);
 
-                animator.SetFloat("Speed", Mathf.Abs(0.01f));
-                
+                animator.SetFloat("Speed", Mathf.Abs(0.01f));     
             }
 
         }
@@ -231,7 +229,7 @@ public class Control : MonoBehaviour
 
     public void OnClickup()
     { 
-            if (OnGround)
+            if (OnGround)//prevent jump when jump
             {
 
                jumpSound.Play();
@@ -239,7 +237,6 @@ public class Control : MonoBehaviour
                rb.AddForce(Vector2.up * speedV, ForceMode2D.Impulse);
                 OnGround = false;
             }
-  
     }
     
     void OnCollisionEnter2D(Collision2D a)
